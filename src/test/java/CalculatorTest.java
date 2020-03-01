@@ -5,6 +5,15 @@ import org.testng.annotations.*;
 
 public class CalculatorTest {
 	@DataProvider
+	private Object[][] getConstructorValues() {
+		return new Object[][] {
+			{ "Tejo" },
+			{ "Oi "},
+			{ "Troia"}
+		};
+	}
+
+	@DataProvider
 	private Object[][] getSumValues() {
 		return new Object[][] {
 			{ 1, 1, 2 },
@@ -84,11 +93,10 @@ public class CalculatorTest {
 		};
 	}
 
-	@Test(groups = { "constructor" })
-	public void testConstructorWithNameOK() {
-		// Arrange
-		String name = "Tejo"; // length = 4
-
+	@Test(
+		groups = { "constructor" },
+		dataProvider = "getConstructorValues")
+	public void testConstructorWithNameOK(String name) {
 		// Act
 		Calculator calculator = new Calculator(name);
 
@@ -126,19 +134,6 @@ public class CalculatorTest {
 	}
 
 	@Test(groups = { "constructor" })
-	public void testConstructorWithNameWithLength2() {
-		// Arrange
-		String name = "Oi"; // length = 2
-
-		// Act
-		Calculator calculator = new Calculator(name);
-
-		// Assert
-		assertNotNull(calculator);
-		assertEquals(calculator.getName(), name);
-	}
-
-	@Test(groups = { "constructor" })
 	public void testConstructorWithNameLengthBiggerThan5 () {
 		// Arrange
 		IllegalArgumentException exception;
@@ -150,19 +145,6 @@ public class CalculatorTest {
 
 		// Assert
 		assertTrue(exception.getMessage().contains("no name"));
-	}
-
-	@Test(groups = { "constructor" })
-	public void testConstructorWithNameWithLength5() {
-		// Arrange
-		String name = "Troia"; // length = 5
-
-		// Act
-		Calculator calculator = new Calculator(name);
-
-		// Assert
-		assertNotNull(calculator);
-		assertEquals(calculator.getName(), name);
 	}
 
 	@Test(
