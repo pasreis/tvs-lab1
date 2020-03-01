@@ -17,9 +17,7 @@ public class CalculatorTest {
 		assertEquals(calculator.getName(), name);
 	}
 
-	@Test(
-		groups = { "constructor" },
-		expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = { "constructor" })
 	public void testConstructorWithNullName() {
 		// Arrange
 		IllegalArgumentException exception;
@@ -33,9 +31,7 @@ public class CalculatorTest {
 		assertTrue(exception.getMessage().contains("no name"));
 	}
 
-	@Test(
-		groups = { "constructor" },
-		expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = { "constructor" })
 	public void testConstructorWithNameLengthSmallerThan2() {
 		// Arrange
 		IllegalArgumentException exception;
@@ -62,9 +58,7 @@ public class CalculatorTest {
 		assertEquals(calculator.getName(), name);
 	}
 
-	@Test(
-		groups = { "constructor" },
-		expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = { "constructor" })
 	public void testConstructorWithNameLengthBiggerThan5 () {
 		// Arrange
 		IllegalArgumentException exception;
