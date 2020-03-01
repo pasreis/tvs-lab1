@@ -3,7 +3,7 @@
  * Each calculator has a name and keeps the number of operations executed without errors.
  **/
 
-package ap;
+package app;
 
 public class Calculator {
 	
