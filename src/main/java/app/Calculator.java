@@ -33,8 +33,20 @@ public class Calculator {
      * @returns the result of this operation.
      **/
     public Integer sum(Integer a, Integer b) {
-        if (a == null)
+        if (a == null && b == null) {
+            ++numberOfOperations;
+            return 0;
+        }
+
+        if (a == null) {
+            ++numberOfOperations;
             return b;
+        }
+
+        if (b == null) {
+            ++numberOfOperations;
+            return a;
+        }
 
         ++numberOfOperations;
         return a + b;
