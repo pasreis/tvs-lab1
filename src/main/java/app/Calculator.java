@@ -63,6 +63,15 @@ public class Calculator {
      * @throws IllegalArgumentException if b is 0.
       **/
     public Integer divide(Integer a, Integer b) {
+        if (b == null || b == 0) {
+            throw new IllegalArgumentException("b is zero");
+        }
+
+        if (a == null) {
+            ++numberOfOperations;
+            return 0;
+        }
+
         ++numberOfOperations;
         return a / b;
     }
