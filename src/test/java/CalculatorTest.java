@@ -4,6 +4,9 @@ import static org.testng.Assert.*;
 import org.testng.annotations.*;
 
 public class CalculatorTest {
+	private Calculator calculator;
+	private IllegalArgumentException exception;
+
 	@DataProvider
 	private Object[][] getConstructorValues() {
 		return new Object[][] {
@@ -101,12 +104,17 @@ public class CalculatorTest {
 		};
 	}
 
+	@BeforeMethod
+	public void setup() {
+		calculator = new Calculator("Tejo");
+	}
+
 	@Test(
 		groups = { "constructor" },
 		dataProvider = "getConstructorValues")
 	public void testConstructorWithNameOK(String name) {
 		// Act
-		Calculator calculator = new Calculator(name);
+		calculator = new Calculator(name);
 
 		// Assert
 		assertNotNull(calculator);
@@ -117,8 +125,6 @@ public class CalculatorTest {
 	@Test(groups = { "constructor" })
 	public void testConstructorWithNullName() {
 		// Arrange
-		IllegalArgumentException exception;
-		Calculator calculator = null;
 		String name = null;
 
 		// Act
@@ -132,24 +138,17 @@ public class CalculatorTest {
 		groups = { "constructor" },
 		dataProvider = "getConstructorValuesInvalidValues")
 	public void testConstructorWithNameNOK(String name) {
-		// Arrange
-		IllegalArgumentException exception;
-		Calculator calculator = null;
-
 		// Act
 		exception = expectThrows(IllegalArgumentException.class, () -> { new Calculator(name); });
 
 		// Assert
 		assertTrue(exception.getMessage().contains("no name"));
 	}
-	
+
 	@Test(
 		groups = { "sum" },
 		dataProvider = "getSumValues")
 	public void testSum(Integer a, Integer b, Integer expectedResult) {
-		// Arrange
-		Calculator calculator = new Calculator("Tejo");
-
 		// Act
 		Integer result = calculator.sum(a, b);
 
@@ -162,10 +161,6 @@ public class CalculatorTest {
 		groups = { "divide" },
 		dataProvider = "getDivideExceptionValues")
 	public void testDivideExceptions(Integer a, Integer b) {
-		// Arrange
-		IllegalArgumentException exception;
-		Calculator calculator = new Calculator("Tejo");
-
 		// Act
 		exception = expectThrows(IllegalArgumentException.class, () -> { calculator.divide(a, b); });
 
@@ -177,9 +172,6 @@ public class CalculatorTest {
 		groups = { "divide" },
 		dataProvider = "getDivideValues")
 	public void testDivide(Integer a, Integer b, Integer expectedResult) {
-		// Arrange
-		Calculator calculator = new Calculator("Tejo");
-
 		// Act
 		Integer result = calculator.divide(a, b);
 
