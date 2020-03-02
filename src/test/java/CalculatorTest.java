@@ -76,7 +76,8 @@ public class CalculatorTest {
 			{ null, 0 },
 			{  4, null },
 			{ -4, null },
-			{  0, null }
+			{  0, null },
+			{ null, null }
 		};
 	}
 
