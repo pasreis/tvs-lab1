@@ -14,6 +14,14 @@ public class CalculatorTest {
 	}
 
 	@DataProvider
+	private Object[][] getConstructorValuesInvalidValues() {
+		return new Object[][] {
+			{ "P" },
+			{ "Lisboa" }
+		};
+	}
+
+	@DataProvider
 	private Object[][] getSumValues() {
 		return new Object[][] {
 			{ 1, 1, 2 },
@@ -103,6 +111,7 @@ public class CalculatorTest {
 		// Assert
 		assertNotNull(calculator);
 		assertEquals(calculator.getName(), name);
+		assertEquals(calculator.getNumberOfOperations(), 0);
 	}
 
 	@Test(groups = { "constructor" })
@@ -119,12 +128,13 @@ public class CalculatorTest {
 		assertTrue(exception.getMessage().contains("no name"));
 	}
 
-	@Test(groups = { "constructor" })
-	public void testConstructorWithNameLengthSmallerThan2() {
+	@Test(
+		groups = { "constructor" },
+		dataProvider = "getConstructorValuesInvalidValues")
+	public void testConstructorWithNameNOK(String name) {
 		// Arrange
 		IllegalArgumentException exception;
 		Calculator calculator = null;
-		String name = "P"; // length = 1
 
 		// Act
 		exception = expectThrows(IllegalArgumentException.class, () -> { new Calculator(name); });
@@ -132,21 +142,7 @@ public class CalculatorTest {
 		// Assert
 		assertTrue(exception.getMessage().contains("no name"));
 	}
-
-	@Test(groups = { "constructor" })
-	public void testConstructorWithNameLengthBiggerThan5 () {
-		// Arrange
-		IllegalArgumentException exception;
-		Calculator calculator = null;
-		String name = "Lisboa"; // length = 6
-
-		// Act
-		exception = expectThrows(IllegalArgumentException.class, () -> { new Calculator(name); });
-
-		// Assert
-		assertTrue(exception.getMessage().contains("no name"));
-	}
-
+	
 	@Test(
 		groups = { "sum" },
 		dataProvider = "getSumValues")
